@@ -221,8 +221,8 @@ section{padding-block:clamp(80px,11vw,150px)}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
 .filters button{font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;border-radius:999px;border:1px solid var(--line);color:var(--mist);transition:.2s}
 .filters button[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
-.releases{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:24px}
-.rel{perspective:900px;text-align:left;display:block;width:100%}
+.releases{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:24px;align-items:start}
+.rel{text-align:left;display:flex;flex-direction:column;justify-content:flex-start;align-self:start;width:100%}   /* todas las portadas arrancan en la misma línea */
 .rel[hidden]{display:none!important}
 .cover{position:relative;aspect-ratio:1;max-width:100%;border-radius:4px;overflow:hidden;transform-style:preserve-3d;transition:transform .25s ease-out,box-shadow .3s;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .cover img{width:100%;height:100%;object-fit:cover}
