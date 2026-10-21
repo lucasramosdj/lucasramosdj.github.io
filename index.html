@@ -150,7 +150,8 @@ html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(78svh,880px);width:auto;max-width:none;transform:translateX(-37.5%);transform-origin:50% 100%;will-change:transform;
   filter:drop-shadow(0 30px 40px rgba(0,0,0,.25))}
 .mm-meta{position:absolute;left:0;right:0;bottom:clamp(18px,3vh,34px);z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;color:#f3f6f4}
-.mm-meta .label{color:#f3f6f4;flex-basis:100%}
+.mm-meta .label{color:#f3f6f4}
+.mm-text{display:grid;gap:10px}   /* el rótulo queda justo arriba de "Progressive house", con un poco de aire */
 .mm-line{font-size:15px;max-width:30ch}
 .mm-meta .socials a{border-color:rgba(243,246,244,.5);background:rgba(18,20,19,.25);backdrop-filter:blur(6px)}
 .scroll-cue{position:absolute;right:max(20px,env(safe-area-inset-right,0px));top:50%;z-index:5;writing-mode:vertical-rl;color:#f3f6f4;animation:cue 1.8s ease-in-out infinite}
@@ -396,8 +397,10 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
     <div class="word front chrome" id="wFront" aria-hidden="true">Ramos</div>
     <h1 class="sr-only">Lucas Ramos</h1>
     <div class="mm-meta wrap" id="mmMeta">
-      <p class="label">DJ &amp; Productor · Necochea, Argentina</p>
-      <p class="mm-line">Progressive house y organic house.</p>
+      <div class="mm-text">
+        <p class="label">DJ &amp; Productor · Necochea, Argentina</p>
+        <p class="mm-line">Progressive house y organic house.</p>
+      </div>
       <div class="socials">
         <a href="https://www.instagram.com/lucasramosmusic_" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
