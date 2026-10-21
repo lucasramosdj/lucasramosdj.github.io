@@ -133,8 +133,8 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 /* LUCAS y RAMOS no se muestran hasta que carga la tipografía fina (sin flash de letra gruesa) */
 html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .word{position:absolute;left:0;right:0;text-align:center;font-family:var(--display);text-transform:uppercase;line-height:.8;
-  font-size:clamp(60px,15vw,270px);letter-spacing:-.02em;white-space:nowrap;will-change:transform}
-.word.back{top:12%;z-index:2;color:#161917;
+  font-size:clamp(56px,13.5vw,240px);letter-spacing:.1em;text-indent:.1em;white-space:nowrap;will-change:transform}
+.word.back{top:8%;z-index:2;color:#161917;
   /* LUCAS en metal negro: degradé oscuro con reflejos + un destello que cruza cada tanto */
   background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%) -150% 0/250% 100% no-repeat,
     linear-gradient(180deg,#5b625e 0%,#1a1d1b 30%,#000 48%,#7d8581 60%,#151816 74%,#383e3a 100%);
@@ -146,7 +146,7 @@ html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .word{padding-block:.15em}
 .word.back{margin-top:-.15em}
 .word.front{margin-bottom:-.15em}
-.cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(88svh,980px);width:auto;max-width:none;transform:translateX(-37.5%);transform-origin:50% 100%;will-change:transform;
+.cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(78svh,880px);width:auto;max-width:none;transform:translateX(-37.5%);transform-origin:50% 100%;will-change:transform;
   filter:drop-shadow(0 30px 40px rgba(0,0,0,.25))}
 .mm-meta{position:absolute;left:0;right:0;bottom:clamp(18px,3vh,34px);z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;color:#f3f6f4}
 .mm-meta .label{color:#f3f6f4;flex-basis:100%}
@@ -173,8 +173,8 @@ html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .split .clip{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
 @media (max-width:760px){
   .mm{height:170svh}
-  .word{font-size:clamp(44px,15.5vw,120px)}
-  .word.back{top:16%}
+  .word{font-size:clamp(42px,14vw,112px)}
+  .word.back{top:12%}
   .word.front{bottom:22%}
   .cut{height:min(74svh,640px)}
   .halo{top:44%}
