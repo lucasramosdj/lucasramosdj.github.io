@@ -307,6 +307,14 @@ section{padding-block:clamp(80px,11vw,150px)}
 .spec div:not(.on):not(:last-child){opacity:.4}
 .spec div.on{padding-left:14px;box-shadow:inset 3px 0 0 var(--sage)}
 .note{margin-top:22px;padding:18px 20px;border-left:2px solid var(--sage);background:rgba(180,199,184,.06);color:var(--mist);font-size:15px;max-width:64ch}
+/* hospitality rider, debajo del tech rider */
+.hosp{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.hosp h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,3vw,40px);margin-bottom:24px}
+.hosp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 40px}
+.hosp ul{list-style:none;display:grid;gap:10px;margin-top:10px}
+.hosp li{display:flex;gap:11px;color:var(--mist);font-size:15px}
+.hosp li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);margin-top:9px;flex:none}
+@media (max-width:640px){.hosp-grid{grid-template-columns:minmax(0,1fr)}}
 .rider-photo{border-radius:4px;overflow:hidden;aspect-ratio:2/3;max-width:100%}
 .rider-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
 
@@ -527,6 +535,27 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
         <div><b>Sistema stereo de retornos</b><span>Cabina</span></div>
       </div>
       <p class="note"><strong>Nota:</strong> Tanto CDJs como el Mixer deben estar linkeados. El sistema de retorno debe poder ser controlado desde el mixer, realizando previamente el Sound Check por el artista en caso de ser necesario.</p>
+      <!-- HOSPITALITY RIDER: texto tal cual el presskit final (PDF) -->
+      <div class="hosp" id="hospitality">
+        <h3>Hospitality Rider</h3>
+        <div class="hosp-grid">
+          <div>
+            <p class="label">Transporte</p>
+            <ul>
+              <li>Vuelos / bus ida y vuelta desde Mar del Plata, Buenos Aires, Argentina.</li>
+              <li>Transporte del hotel al evento antes y después del mismo.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="label">Accomodation</p>
+            <ul>
+              <li>Hotel 3-4 estrellas.</li>
+              <li>Habitación privada para 1 o 2 personas / servicio de wifi.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="note"><strong>Nota:</strong> El alimento y bebidas de la estadía deberán ser cubiertas por parte del hotel, promotor u organización.</p>
+      </div>
     </div>
     <figure class="rider-photo reveal"><img src="img/rider.jpg?v=hq" alt="Lucas Ramos de perfil con anteojos negros" loading="lazy"></figure>
   </div>
@@ -570,18 +599,19 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
 <section id="presskit" class="pk">
   <div class="wrap">
     <div class="head"><div><p class="label">Original</p><h2>Presskit</h2></div>
-      <a class="btn ghost" href="presskit-lucas-ramos.pdf" download="Presskit-Lucas-Ramos.pdf">Descargar PDF</a></div>
+      <a class="btn ghost" href="presskit-lucas-ramos-final.pdf" download="Presskit-Lucas-Ramos.pdf">Descargar PDF</a></div>
     <div class="pk-track" id="pkTrack">
-      <button type="button" class="pk-page" data-i="0"><img src="img/pk1.jpg" alt="Presskit, página 1: portada" loading="lazy"></button>
-      <button type="button" class="pk-page" data-i="1"><img src="img/pk2.jpg" alt="Presskit, página 2: biografía" loading="lazy"></button>
-      <button type="button" class="pk-page" data-i="2"><img src="img/pk3.jpg" alt="Presskit, página 3: lanzamientos" loading="lazy"></button>
-      <button type="button" class="pk-page" data-i="3"><img src="img/pk4.jpg" alt="Presskit, página 4: flyers" loading="lazy"></button>
-      <button type="button" class="pk-page" data-i="4"><img src="img/pk5.jpg" alt="Presskit, página 5: sets" loading="lazy"></button>
-      <button type="button" class="pk-page" data-i="5"><img src="img/pk6.jpg" alt="Presskit, página 6: tech rider" loading="lazy"></button>
-      <button type="button" class="pk-page" data-i="6"><img src="img/pk7.jpg" alt="Presskit, página 7: contacto" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="0"><img src="img/pkf1.jpg" alt="Presskit, página 1: portada" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="1"><img src="img/pkf2.jpg" alt="Presskit, página 2: biografía" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="2"><img src="img/pkf3.jpg" alt="Presskit, página 3: lanzamientos" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="3"><img src="img/pkf4.jpg" alt="Presskit, página 4: flyers" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="4"><img src="img/pkf5.jpg" alt="Presskit, página 5: sets" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="5"><img src="img/pkf6.jpg" alt="Presskit, página 6: hospitality rider" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="6"><img src="img/pkf7.jpg" alt="Presskit, página 7: tech rider" loading="lazy"></button>
+      <button type="button" class="pk-page" data-i="7"><img src="img/pkf8.jpg" alt="Presskit, página 8: contacto" loading="lazy"></button>
     </div>
     <div class="slider-nav pk-nav">
-      <span class="label" id="pkCount">1 / 7</span>
+      <span class="label" id="pkCount">1 / 8</span>
       <button type="button" class="arrow" id="pkPrev" aria-label="Página anterior">‹</button>
       <button type="button" class="arrow" id="pkNext" aria-label="Página siguiente">›</button>
     </div>
@@ -867,7 +897,7 @@ $('#pkPrev').addEventListener('click',()=>pkGo(-1));
 $('#pkNext').addEventListener('click',()=>pkGo(1));
 pkTrack.addEventListener('scroll',()=>{ const w=pkPages[0].getBoundingClientRect().width+18; $('#pkCount').textContent=`${Math.min(pkPages.length,Math.round(pkTrack.scrollLeft/w)+1)} / ${pkPages.length}`; },{passive:true});
 pkTrack.addEventListener('click',e=>{ const b=e.target.closest('.pk-page'); if(!b) return;
-  openLb(pkPages.map((p,i)=>({src:p.querySelector('img').src,kind:'Presskit',title:`Página ${i+1} de ${pkPages.length}`,text:'',link:'presskit-lucas-ramos.pdf',cta:'Abrir el PDF'})), +b.dataset.i); });
+  openLb(pkPages.map((p,i)=>({src:p.querySelector('img').src,kind:'Presskit',title:`Página ${i+1} de ${pkPages.length}`,text:'',link:'presskit-lucas-ramos-final.pdf',cta:'Abrir el PDF'})), +b.dataset.i); });
 
 /* ---- aparición al scrollear (solo lo que está debajo del primer pantallazo) ---- */
 if(!calm && 'IntersectionObserver' in window){
