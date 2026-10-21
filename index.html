@@ -688,16 +688,14 @@ document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('clic
   relBox.querySelectorAll('.rel').forEach(r=>r.hidden = !(b.dataset.f==='all' || r.dataset.k===b.dataset.f));
 }));
 
-/* ---- tilt 3D en portadas ---- */
+/* ---- brillo en portadas (sin inclinarlas: todas quedan derechas y del mismo tamaño) ---- */
 const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
 const calm = matchMedia('(prefers-reduced-motion:reduce)').matches;
 if (fine && !calm) relBox.querySelectorAll('.cover').forEach(c=>{
   c.addEventListener('pointermove',e=>{
     const r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
-    c.style.transform=`rotateY(${(x-.5)*16}deg) rotateX(${(.5-y)*16}deg)`;
     c.style.setProperty('--gx',x*100+'%'); c.style.setProperty('--gy',y*100+'%');
   });
-  c.addEventListener('pointerleave',()=>{c.style.transform='';});
 });
 
 /* ---- lightbox (portadas y flyers) ---- */
