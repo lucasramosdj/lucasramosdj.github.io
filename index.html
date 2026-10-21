@@ -507,7 +507,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
       <!-- Texto tal cual el presskit en PDF -->
       <div class="spec" id="spec">
         <div><b>CDJ 3000 (×3) + DJM V10</b></div>
-        <div><b>CDJ 2000NXS (×3) + DJM 900NXS</b></div>
+        <div><b>CDJ 2000NXS (×3) + DJM 900NXS</b><span>Opcional</span></div>
         <div><b>Sistema stereo de retornos</b></div>
       </div>
       <p class="note"><strong>Nota:</strong> Tanto CDJs como el Mixer deben estar linkeados. El sistema de retorno debe poder ser controlado desde el mixer, realizando previamente el Sound Check por el artista en caso de ser necesario.</p>
@@ -812,8 +812,16 @@ if(window.gsap && window.ScrollTrigger && !calm){
     h.classList.add('split');
     h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(line=>line.trim().split(/\s+/).map(w=>
       `<span class="wd">${[...w].map(c=>`<span class="clip"><span class="ch">${c}</span></span>`).join('')}</span>`).join(' ')).join('<br>');
-    gsap.from(h.querySelectorAll('.ch'),{yPercent:110,duration:.9,ease:'power4.out',stagger:.025,
-      scrollTrigger:{trigger:h,start:'top 88%',once:true}});
+    // se vuelven a animar cada vez que entran en pantalla (bajando o subiendo)
+    const chars=h.querySelectorAll('.ch');
+    const play=()=>gsap.fromTo(chars,{yPercent:110},{yPercent:0,duration:.9,ease:'power4.out',stagger:.025,overwrite:true});
+    gsap.set(chars,{yPercent:110});
+    ScrollTrigger.create({trigger:h,start:'top 85%',end:'bottom 10%',onEnter:play,onEnterBack:play,
+      onLeave:()=>gsap.set(chars,{yPercent:110}),onLeaveBack:()=>gsap.set(chars,{yPercent:110})});
+    // al pasar el mouse, las letras hacen una ola
+    h.addEventListener('pointerenter',()=>gsap.fromTo(chars,{yPercent:0},{yPercent:-18,duration:.25,ease:'power2.out',stagger:.03,yoyo:true,repeat:1,overwrite:true}));
+    // el bloque del título no hace fundido: así se ve bien la animación de las letras
+    const head=h.closest('.reveal'); if(head) head.classList.remove('reveal','pre');
   });
 
   // fotos que se acercan al pasar
