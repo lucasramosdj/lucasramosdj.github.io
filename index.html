@@ -394,7 +394,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
     <svg class="waves" id="waves" viewBox="0 0 1600 600" preserveAspectRatio="none" aria-hidden="true"></svg>
     <div class="halo" id="halo" aria-hidden="true"></div>
     <div class="word back" id="wBack" aria-hidden="true">Lucas</div>
-    <img class="cut" id="cut" src="img/lucas-cut.webp" alt="Lucas Ramos con anteojos negros" fetchpriority="high">
+    <img class="cut" id="cut" src="img/lucas-cut.webp?v=hq" alt="Lucas Ramos con anteojos negros" fetchpriority="high">
     <div class="word front chrome" id="wFront" aria-hidden="true">Ramos</div>
     <h1 class="sr-only">Lucas Ramos</h1>
     <div class="mm-meta wrap" id="mmMeta">
@@ -434,9 +434,9 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
   <div class="wrap bio">
     <div class="bio-side">
       <figure class="bio-photo slider" id="bioSlider">
-        <img class="on" src="img/bio.jpg" alt="Lucas Ramos con camisa clara frente a un círculo de luz" loading="lazy">
-        <img src="img/portrait.jpg" alt="Lucas Ramos con anteojos negros y campera negra" loading="lazy">
-        <img src="img/hero.jpg" alt="Lucas Ramos sentado en el estudio" loading="lazy">
+        <img class="on" src="img/bio.jpg?v=hq" alt="Lucas Ramos con camisa clara frente a un círculo de luz" loading="lazy">
+        <img src="img/portrait.jpg?v=hq" alt="Lucas Ramos con anteojos negros y campera negra" loading="lazy">
+        <img src="img/hero.jpg?v=hq" alt="Lucas Ramos sentado en el estudio" loading="lazy">
       </figure>
       <div class="slider-nav">
         <span class="label" id="slideCount">1 / 3</span>
@@ -494,7 +494,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
       <div class="head"><div><p class="label">SoundCloud</p><h2>Sets</h2></div></div>
       <div id="setList"></div>
     </div>
-    <figure class="sets-photo reveal"><img src="img/sets.jpg" alt="Lucas Ramos sentado en un banco en el estudio" loading="lazy"></figure>
+    <figure class="sets-photo reveal"><img src="img/sets-hq.jpg" alt="Lucas Ramos sentado en un banco en el estudio" loading="lazy"></figure>
   </div>
 </section>
 
@@ -512,7 +512,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
       </div>
       <p class="note"><strong>Nota:</strong> Tanto CDJs como el Mixer deben estar linkeados. El sistema de retorno debe poder ser controlado desde el mixer, realizando previamente el Sound Check por el artista en caso de ser necesario.</p>
     </div>
-    <figure class="rider-photo reveal"><img src="img/rider.jpg" alt="Lucas Ramos de perfil con anteojos negros" loading="lazy"></figure>
+    <figure class="rider-photo reveal"><img src="img/rider.jpg?v=hq" alt="Lucas Ramos de perfil con anteojos negros" loading="lazy"></figure>
   </div>
 </section>
 
@@ -642,14 +642,14 @@ const $ = s => document.querySelector(s);
 const relBox = $('#releases');
 relBox.innerHTML = releases.map((r,i)=>`
   <button class="rel" type="button" data-i="${i}" data-k="${r.k}">
-    <div class="cover"><img src="img/${r.img}.jpg" alt="Portada de ${r.t}" loading="lazy"></div>
+    <div class="cover"><img src="img/${r.img}.jpg?v=hq" alt="Portada de ${r.t}" loading="lazy"></div>
     <h3>${r.t}</h3><p>${r.a}</p><span class="label">${kindName[r.k]}${r.l ? " · " + r.l : ""}</span>
   </button>`).join('');
 
 const fan = $('#flyerFan');
 fan.innerHTML = flyers.map((f,i)=>`
   <button class="flyer" type="button" data-i="${i}" style="--i:${i-2};z-index:${5-Math.abs(i-2)}" aria-label="Ver flyer ${f.t}">
-    <img src="img/${f.img}.jpg" alt="" loading="lazy">
+    <img src="img/${f.img}.jpg?v=hq" alt="" loading="lazy">
   </button>`).join('');
 
 $('#setList').innerHTML = sets.map((s,i)=>`
@@ -709,10 +709,10 @@ function fill(){
 function openLb(items,i){ list=items; idx=i; lastFocus=document.activeElement; fill(); lb.hidden=false; document.body.style.overflow='hidden'; $('#lbClose').focus(); }
 function closeLb(){ lb.hidden=true; document.body.style.overflow=''; lastFocus&&lastFocus.focus(); }
 const relItems=()=>[...relBox.querySelectorAll('.rel:not([hidden])')].map(el=>{const r=releases[el.dataset.i];
-  return {src:`img/${r.img}.jpg`,kind:`${kindName[r.k]}${r.l ? " · " + r.l : ""}`,title:r.t,text:r.a,link:r.link||BEATPORT,cta:r.link?'Descargar en SoundCloud':'Escuchar en Beatport',el};});
+  return {src:`img/${r.img}.jpg?v=hq`,kind:`${kindName[r.k]}${r.l ? " · " + r.l : ""}`,title:r.t,text:r.a,link:r.link||BEATPORT,cta:r.link?'Descargar en SoundCloud':'Escuchar en Beatport',el};});
 relBox.addEventListener('click',e=>{const b=e.target.closest('.rel'); if(!b)return; const items=relItems(); openLb(items, items.findIndex(x=>x.el===b));});
 fan.addEventListener('click',e=>{const b=e.target.closest('.flyer'); if(!b)return;
-  openLb(flyers.map(f=>({src:`img/${f.img}.jpg`,kind:'Flyer',title:f.t,text:f.d})), +b.dataset.i);});
+  openLb(flyers.map(f=>({src:`img/${f.img}.jpg?v=hq`,kind:'Flyer',title:f.t,text:f.d})), +b.dataset.i);});
 $('#lbClose').addEventListener('click',closeLb);
 $('#lbPrev').addEventListener('click',()=>{idx=(idx-1+list.length)%list.length;fill();});
 $('#lbNext').addEventListener('click',()=>{idx=(idx+1)%list.length;fill();});
