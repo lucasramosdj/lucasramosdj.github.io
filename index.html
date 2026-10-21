@@ -132,6 +132,7 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 #flyers,#contacto{position:relative;overflow:hidden}
 #flyers > .wrap,#contacto > .wrap{position:relative;z-index:1}
 .waves.waves-bg{top:12%;height:76%;opacity:.34;pointer-events:none;filter:drop-shadow(0 0 4px rgba(243,246,244,.6))}
+#flyers .waves.waves-bg{top:26%;height:58%}   /* las líneas pasan por la mitad de los flyers */
 .halo{position:absolute;left:50%;top:40%;width:min(83vh,104vw);aspect-ratio:1;border-radius:50%;z-index:1;
   transform:translate(-50%,-50%);background:radial-gradient(circle,#f3f7f4 0%,#e4ece6 45%,#d4ded7 58%,rgba(212,222,215,0) 70%)}
 /* LUCAS y RAMOS no se muestran hasta que carga la tipografía fina (sin flash de letra gruesa) */
@@ -296,7 +297,7 @@ section{padding-block:clamp(80px,11vw,150px)}
 .sc-link:hover{color:var(--paper)}
 
 /* rider */
-.rider{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(30px,5vw,70px);align-items:end}
+.rider{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(30px,5vw,70px);align-items:center}   /* la foto queda al lado del Tech Rider */
 .tabs{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:26px;max-width:100%}
 .tabs button{padding:10px clamp(12px,3vw,18px);white-space:nowrap;border-radius:999px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mist);transition:.25s;font-size:12px}
 .tabs button[aria-selected="true"]{background:var(--paper);color:var(--ink)}
@@ -541,29 +542,31 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
         <div><b>Sistema stereo de retornos</b><span>Cabina</span></div>
       </div>
       <p class="note"><strong>Nota:</strong> Tanto CDJs como el Mixer deben estar linkeados. El sistema de retorno debe poder ser controlado desde el mixer, realizando previamente el Sound Check por el artista en caso de ser necesario.</p>
-      <!-- HOSPITALITY RIDER: texto tal cual el presskit final (PDF) -->
-      <div class="hosp" id="hospitality">
-        <h3>Hospitality Rider</h3>
-        <div class="hosp-grid">
-          <div>
-            <p class="label">Transporte</p>
-            <ul>
-              <li>Vuelos / bus ida y vuelta desde Mar del Plata, Buenos Aires, Argentina.</li>
-              <li>Transporte del hotel al evento antes y después del mismo.</li>
-            </ul>
-          </div>
-          <div>
-            <p class="label">Accomodation</p>
-            <ul>
-              <li>Hotel 3-4 estrellas.</li>
-              <li>Habitación privada para 1 o 2 personas / servicio de wifi.</li>
-            </ul>
-          </div>
-        </div>
-        <p class="note"><strong>Nota:</strong> El alimento y bebidas de la estadía deberán ser cubiertas por parte del hotel, promotor u organización.</p>
-      </div>
     </div>
     <figure class="rider-photo reveal"><img src="img/rider.jpg?v=hq" alt="Lucas Ramos de perfil con anteojos negros" loading="lazy"></figure>
+  </div>
+  <div class="wrap">
+    <!-- HOSPITALITY RIDER: texto tal cual el presskit final (PDF) -->
+    <div class="hosp" id="hospitality">
+      <h3>Hospitality Rider</h3>
+      <div class="hosp-grid">
+        <div>
+          <p class="label">Transporte</p>
+          <ul>
+            <li>Vuelos / bus ida y vuelta desde Mar del Plata, Buenos Aires, Argentina.</li>
+            <li>Transporte del hotel al evento antes y después del mismo.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">Accomodation</p>
+          <ul>
+            <li>Hotel 3-4 estrellas.</li>
+            <li>Habitación privada para 1 o 2 personas / servicio de wifi.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note"><strong>Nota:</strong> El alimento y bebidas de la estadía deberán ser cubiertas por parte del hotel, promotor u organización.</p>
+    </div>
   </div>
 </section>
 
