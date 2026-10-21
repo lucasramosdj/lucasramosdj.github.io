@@ -9,7 +9,8 @@
 <meta name="description" content="Lucas Ramos — DJ y productor argentino. Progressive house y organic house. Bio, lanzamientos, sets, rider técnico y booking.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Hanken+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Hanken+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <style>
 /* Layout: estudio con fondo infinito gris. El fondo va virando de grafito cálido a salvia fría a medida que bajás, como el presskit. */
@@ -22,7 +23,7 @@
   --paper:#eef2ef;
   --sage:#b4c7b8;       /* el círculo de las fotos */
 
-  --display:'Michroma','Eurostile','Arial Black',sans-serif;
+  --display:'Michroma','Eurostile',Arial,sans-serif;   /* sin Arial Black: así no aparece una letra gruesa mientras carga */
   --body:'Hanken Grotesk',-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
 
@@ -129,6 +130,8 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .waves path{fill:none;stroke:#f3f6f4;stroke-width:1.2;vector-effect:non-scaling-stroke}
 .halo{position:absolute;left:50%;top:40%;width:min(64vh,80vw);aspect-ratio:1;border-radius:50%;z-index:1;
   transform:translate(-50%,-50%);background:radial-gradient(circle,#dfe8e1 0%,#cbd8ce 55%,rgba(203,216,206,0) 71%)}
+/* LUCAS y RAMOS no se muestran hasta que carga la tipografía fina (sin flash de letra gruesa) */
+html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .word{position:absolute;left:0;right:0;text-align:center;font-family:var(--display);text-transform:uppercase;line-height:.8;
   font-size:clamp(60px,15vw,270px);letter-spacing:-.02em;white-space:nowrap;will-change:transform}
 .word.back{top:12%;z-index:2;color:#161917}
@@ -544,6 +547,7 @@ footer a:hover{color:#fff}
   </div>
 </div>
 
+<script>(function(){var d=document.documentElement,ok=function(){d.classList.add("fonts-ok")};if(document.fonts&&document.fonts.load){Promise.all([document.fonts.load("400 100px Michroma"),document.fonts.ready]).then(ok,ok);setTimeout(ok,2500)}else ok()})();</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
