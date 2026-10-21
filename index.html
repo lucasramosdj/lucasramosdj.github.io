@@ -134,7 +134,13 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .word{position:absolute;left:0;right:0;text-align:center;font-family:var(--display);text-transform:uppercase;line-height:.8;
   font-size:clamp(60px,15vw,270px);letter-spacing:-.02em;white-space:nowrap;will-change:transform}
-.word.back{top:12%;z-index:2;color:#161917}
+.word.back{top:12%;z-index:2;color:#161917;
+  /* LUCAS en metal negro: degradé oscuro con reflejos + un destello que cruza cada tanto */
+  background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%) -150% 0/250% 100% no-repeat,
+    linear-gradient(180deg,#5b625e 0%,#1a1d1b 30%,#000 48%,#7d8581 60%,#151816 74%,#383e3a 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,.25));animation:metalShine 5s ease-in-out 1.5s infinite}
+@keyframes metalShine{0%{background-position:-150% 0,0 0}45%,100%{background-position:250% 0,0 0}}
 .word.front{bottom:13%;z-index:4;filter:drop-shadow(0 12px 30px rgba(0,0,0,.35))}
 .cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(88svh,980px);width:auto;max-width:none;transform:translateX(-37.5%);transform-origin:50% 100%;will-change:transform;
   filter:drop-shadow(0 30px 40px rgba(0,0,0,.25))}
