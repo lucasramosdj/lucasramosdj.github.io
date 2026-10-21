@@ -142,6 +142,10 @@ html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
   filter:drop-shadow(0 6px 14px rgba(0,0,0,.25));animation:metalShine 5s ease-in-out 1.5s infinite}
 @keyframes metalShine{0%{background-position:-150% 0,0 0}45%,100%{background-position:250% 0,0 0}}
 .word.front{bottom:13%;z-index:4;filter:drop-shadow(0 12px 30px rgba(0,0,0,.35))}
+/* más alto para que el metal y el cromo no corten la parte de abajo de las letras; el margen negativo las deja en el mismo lugar */
+.word{padding-block:.15em}
+.word.back{margin-top:-.15em}
+.word.front{margin-bottom:-.15em}
 .cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(88svh,980px);width:auto;max-width:none;transform:translateX(-37.5%);transform-origin:50% 100%;will-change:transform;
   filter:drop-shadow(0 30px 40px rgba(0,0,0,.25))}
 .mm-meta{position:absolute;left:0;right:0;bottom:clamp(18px,3vh,34px);z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;color:#f3f6f4}
