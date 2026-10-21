@@ -257,11 +257,12 @@ section{padding-block:clamp(80px,11vw,150px)}
 #setList .set{width:100%;text-align:left;border:0;color:inherit}
 #setList .set:last-child{border-bottom:0}
 .play-ic{display:flex;align-items:center;gap:12px}
-.play-ic b{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:400;background:var(--paper);color:var(--ink);transition:transform .2s,background .2s}
-.set:hover .play-ic b{transform:scale(1.08);background:var(--sage)}
-.set-item.playing .play-ic b{background:var(--sage)}
-/* play y pausa centrados en el círculo */
-.play-ic b svg{width:16px;height:16px;display:block}
+.play-ic b{width:44px;height:44px;display:grid;place-items:center;background:none;transition:transform .25s,filter .25s;filter:drop-shadow(0 0 5px rgba(255,255,255,.35)) drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.set:hover .play-ic b{transform:scale(1.15);filter:drop-shadow(0 0 10px rgba(255,255,255,.7)) drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.set-item.playing .play-ic b{animation:glow 1.6s ease-in-out infinite alternate}
+@keyframes glow{to{filter:drop-shadow(0 0 12px rgba(255,255,255,.8)) drop-shadow(0 2px 4px rgba(0,0,0,.35))}}
+/* play y pausa: solo el ícono cromado, sin círculo */
+.play-ic b svg{width:26px;height:26px;display:block}
 .play-ic .i-pause,.set-item.playing .play-ic .i-play{display:none}
 .set-item.playing .play-ic .i-pause{display:block}
 #setList .set:focus:not(:focus-visible){outline:none}
@@ -364,6 +365,8 @@ footer a:hover{color:#fff}
 
 <!-- ===================== HERO ===================== -->
 <!-- Portada en capas, como missmoniquemusic.com: atrás LUCAS, el círculo y las ondas; en el medio Lucas recortado; adelante RAMOS.
+<!-- degradé cromado (el mismo de "RAMOS") para los íconos de play y pausa -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="chromeFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".38" stop-color="#e4e9e5"/><stop offset=".52" stop-color="#8d958f"/><stop offset=".7" stop-color="#f3f5f3"/><stop offset="1" stop-color="#b9c0bb"/></linearGradient></defs></svg>
      Al bajar, la portada queda fija un momento y las capas se separan. -->
 <header class="mm" id="top">
   <div class="mm-pin">
@@ -608,7 +611,7 @@ $('#setList').innerHTML = sets.map((s,i)=>`
     <button class="set" type="button" data-i="${i}" aria-expanded="false" aria-controls="player${i}">
       <span class="n">0${i+1}</span>
       <span><h3>${s.t}</h3>${s.d ? `<small>${s.d}</small>` : ""}</span>
-      <span class="play-ic" aria-hidden="true"><span class="wave"><i></i><i></i><i></i><i></i><i></i></span><b><svg class="i-play" viewBox="0 0 16 16"><path d="M5 3.2v9.6L12.6 8z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 16 16"><rect x="4" y="3.5" width="2.6" height="9" rx=".6" fill="currentColor"/><rect x="9.4" y="3.5" width="2.6" height="9" rx=".6" fill="currentColor"/></svg></b></span>
+      <span class="play-ic" aria-hidden="true"><span class="wave"><i></i><i></i><i></i><i></i><i></i></span><b><svg class="i-play" viewBox="0 0 16 16"><path d="M4.5 2.5v11L13.5 8z" fill="url(#chromeFill)"/></svg><svg class="i-pause" viewBox="0 0 16 16"><rect x="4" y="2.5" width="2.4" height="11" fill="url(#chromeFill)"/><rect x="9.6" y="2.5" width="2.4" height="11" fill="url(#chromeFill)"/></svg></b></span>
     </button>
     <div class="player" id="player${i}" hidden>
       <div class="player-frame"></div>
