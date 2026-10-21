@@ -128,6 +128,10 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .mm-pin{position:sticky;top:0;height:100svh;overflow:hidden;isolation:isolate}
 .waves{position:absolute;left:-5%;width:110%;top:18%;height:64%;z-index:0;opacity:.55}
 .waves path{fill:none;stroke:#f3f6f4;stroke-width:1.2;vector-effect:non-scaling-stroke}
+/* las mismas ondas, suaves, de fondo en Flyers y Contacto */
+#flyers,#contacto{position:relative;overflow:hidden}
+#flyers > .wrap,#contacto > .wrap{position:relative;z-index:1}
+.waves.waves-bg{top:12%;height:76%;opacity:.16;pointer-events:none}
 .halo{position:absolute;left:50%;top:40%;width:min(83vh,104vw);aspect-ratio:1;border-radius:50%;z-index:1;
   transform:translate(-50%,-50%);background:radial-gradient(circle,#f3f7f4 0%,#e4ece6 45%,#d4ded7 58%,rgba(212,222,215,0) 70%)}
 /* LUCAS y RAMOS no se muestran hasta que carga la tipografía fina (sin flash de letra gruesa) */
@@ -484,6 +488,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
 
 <!-- ===================== FLYERS ===================== -->
 <section id="flyers">
+  <svg class="waves waves-bg" viewBox="0 0 1600 600" preserveAspectRatio="none" aria-hidden="true"></svg>
   <div class="wrap">
     <div class="head reveal">
       <div><p class="label">En vivo</p><h2>Flyers</h2></div>
@@ -529,6 +534,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
 
 <!-- ===================== CONTACTO ===================== -->
 <section id="contacto" class="contact">
+  <svg class="waves waves-bg" viewBox="0 0 1600 600" preserveAspectRatio="none" aria-hidden="true"></svg>
   <div class="wrap">
     <p class="label">Booking &amp; prensa</p>
     <h2 class="chrome">Contacto</h2>
@@ -764,12 +770,19 @@ menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.class
 const waves=$('#waves'); const NW=6; let amp=1;
 waves.innerHTML=Array.from({length:NW},()=>'<path/>').join('');
 const wpaths=[...waves.children];
+// copias de fondo (Flyers y Contacto): mismas ondas, desfasadas
+const bgSets=[...document.querySelectorAll('.waves-bg')].map((svg,n)=>{svg.innerHTML=Array.from({length:NW},()=>'<path/>').join('');return {paths:[...svg.children],off:2+n*3};});
 function drawWaves(t){
   wpaths.forEach((p,k)=>{
     let d=''; const base=300+(k-NW/2)*26, a=(38+k*14)*amp, f=.0042+k*.0004, ph=t*.0004*(1+k*.15)+k;
     for(let x=0;x<=1600;x+=20){ const y=base+Math.sin(x*f+ph)*a*Math.sin(x/1600*Math.PI); d+=(x?'L':'M')+x+' '+y.toFixed(1); }
     p.setAttribute('d',d);
   });
+  bgSets.forEach(set=>set.paths.forEach((p,k)=>{
+    let d=''; const base=300+(k-NW/2)*26, a=38+k*14, f=.0042+k*.0004, ph=t*.0004*(1+k*.15)+k+set.off;
+    for(let x=0;x<=1600;x+=20){ const y=base+Math.sin(x*f+ph)*a*Math.sin(x/1600*Math.PI); d+=(x?'L':'M')+x+' '+y.toFixed(1); }
+    p.setAttribute('d',d);
+  }));
   if(!calm) requestAnimationFrame(drawWaves);
 }
 drawWaves(0);
