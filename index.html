@@ -803,9 +803,10 @@ if(window.gsap && window.ScrollTrigger && !calm){
     onUpdate:s=>{ amp=1+s.progress*1.8; }}});
   tl.to('.word.back',{x:()=>-innerWidth*.45,ease:'none'},0)
     .to('.word.front',{x:()=>innerWidth*.45,ease:'none'},0)
-    .to(cut,{scale:1.12,yPercent:-4,ease:'none'},0)
-    .to(halo,{scale:1.9,opacity:.35,ease:'none'},0)
-    .to(['#mmMeta','#cue'],{opacity:0,y:-30,ease:'none',duration:.35},0);
+    // fromTo con valores de partida fijos: al volver arriba, Lucas y el aro quedan siempre visibles (no heredan el estado invisible de la entrada)
+    .fromTo(cut,{scale:1,yPercent:0,opacity:1},{scale:1.12,yPercent:-4,opacity:1,ease:'none',immediateRender:false},0)
+    .fromTo(halo,{scale:1,opacity:1},{scale:1.9,opacity:.35,ease:'none',immediateRender:false},0)
+    .fromTo(['#mmMeta','#cue'],{opacity:1,y:0},{opacity:0,y:-30,ease:'none',duration:.35,immediateRender:false},0);
 
   // títulos que entran letra por letra
   document.querySelectorAll('section h2').forEach(h=>{
