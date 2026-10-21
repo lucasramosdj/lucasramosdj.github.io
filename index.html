@@ -130,6 +130,7 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .waves path{fill:none;stroke:#f3f6f4;stroke-width:1.2;vector-effect:non-scaling-stroke}
 /* las mismas ondas, suaves, de fondo en Flyers y Contacto */
 #flyers,#contacto{position:relative;overflow:hidden}
+#hospitality .waves.waves-bg{top:30%;height:60%}
 #flyers > .wrap,#contacto > .wrap{position:relative;z-index:1}
 .waves.waves-bg{top:12%;height:76%;opacity:.34;pointer-events:none;filter:drop-shadow(0 0 4px rgba(243,246,244,.6))}
 #flyers .waves.waves-bg{top:26%;height:58%}   /* las líneas pasan por la mitad de los flyers */
@@ -315,13 +316,25 @@ section{padding-block:clamp(80px,11vw,150px)}
 .spec div.on{padding-left:14px;box-shadow:inset 3px 0 0 var(--sage)}
 .note{margin-top:22px;padding:18px 20px;border-left:2px solid var(--sage);background:rgba(180,199,184,.06);color:var(--mist);font-size:15px;max-width:64ch}
 /* hospitality rider, debajo del tech rider */
-.hosp{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
-.hosp h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,3vw,40px);margin-bottom:24px}
-.hosp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 40px}
-.hosp ul{list-style:none;display:grid;gap:10px;margin-top:10px}
-.hosp li{display:flex;gap:11px;color:var(--mist);font-size:15px}
-.hosp li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);margin-top:9px;flex:none}
-@media (max-width:640px){.hosp-grid{grid-template-columns:minmax(0,1fr)}}
+/* ---------- hospitality rider: sección propia con la estética de Lucas (aro de luz, ondas, cromo) ---------- */
+.hosp-sec{position:relative;overflow:hidden;padding-block:clamp(110px,14vw,190px)}
+.hosp-sec > .wrap{position:relative;z-index:1}
+.hosp-halo{position:absolute;right:-8%;top:50%;width:min(70vh,60vw);aspect-ratio:1;border-radius:50%;transform:translateY(-50%);z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(223,232,225,.55) 0%,rgba(203,216,206,.28) 45%,rgba(203,216,206,0) 70%);animation:haloBreath 7s ease-in-out infinite}
+@keyframes haloBreath{50%{transform:translateY(-50%) scale(1.08);opacity:.8}}
+.hosp-title{font-size:clamp(22px,7.4vw,84px);margin-bottom:44px;
+  background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.75) 50%,transparent 58%) -150% 0/250% 100% no-repeat,
+    linear-gradient(180deg,#fff 0%,#e4e9e5 38%,#8d958f 52%,#f3f5f3 70%,#b9c0bb 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-block:.12em;animation:metalShine 5s ease-in-out 1s infinite}
+.hosp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.hosp-card{border:1px solid var(--line);border-radius:10px;padding:28px 28px 24px;background:rgba(18,20,19,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s}
+.hosp-card:hover{transform:translateY(-6px);border-color:var(--sage);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.hosp-card ul{list-style:none;display:grid;gap:12px;margin-top:14px}
+.hosp-card li{display:flex;gap:12px;color:var(--paper);font-size:16px}
+.hosp-card li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 10px var(--sage);margin-top:9px;flex:none}
+.hosp-note{margin-top:26px}
+@media (max-width:640px){.hosp-grid{grid-template-columns:minmax(0,1fr)}.hosp-halo{width:90vw;right:-30%}}
 .rider-photo{border-radius:4px;overflow:hidden;aspect-ratio:2/3;max-width:100%}
 .rider-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
 
@@ -545,28 +558,32 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
     </div>
     <figure class="rider-photo reveal"><img src="img/rider.jpg?v=hq" alt="Lucas Ramos de perfil con anteojos negros" loading="lazy"></figure>
   </div>
+</section>
+
+<!-- ===================== HOSPITALITY RIDER (sección propia, como página aparte del presskit) ===================== -->
+<!-- texto tal cual el presskit final (PDF) -->
+<section id="hospitality" class="hosp-sec">
+  <svg class="waves waves-bg" viewBox="0 0 1600 600" preserveAspectRatio="none" aria-hidden="true"></svg>
+  <div class="hosp-halo" aria-hidden="true"></div>
   <div class="wrap">
-    <!-- HOSPITALITY RIDER: texto tal cual el presskit final (PDF) -->
-    <div class="hosp" id="hospitality">
-      <h3>Hospitality Rider</h3>
-      <div class="hosp-grid">
-        <div>
-          <p class="label">Transporte</p>
-          <ul>
-            <li>Vuelos / bus ida y vuelta desde Mar del Plata, Buenos Aires, Argentina.</li>
-            <li>Transporte del hotel al evento antes y después del mismo.</li>
-          </ul>
-        </div>
-        <div>
-          <p class="label">Accomodation</p>
-          <ul>
-            <li>Hotel 3-4 estrellas.</li>
-            <li>Habitación privada para 1 o 2 personas / servicio de wifi.</li>
-          </ul>
-        </div>
+    <h2 class="hosp-title no-split">Hospitality Rider</h2>
+    <div class="hosp-grid">
+      <div class="hosp-card">
+        <p class="label">Transporte</p>
+        <ul>
+          <li>Vuelos / bus ida y vuelta desde Mar del Plata, Buenos Aires, Argentina.</li>
+          <li>Transporte del hotel al evento antes y después del mismo.</li>
+        </ul>
       </div>
-      <p class="note"><strong>Nota:</strong> El alimento y bebidas de la estadía deberán ser cubiertas por parte del hotel, promotor u organización.</p>
+      <div class="hosp-card">
+        <p class="label">Accomodation</p>
+        <ul>
+          <li>Hotel 3-4 estrellas.</li>
+          <li>Habitación privada para 1 o 2 personas / servicio de wifi.</li>
+        </ul>
+      </div>
     </div>
+    <p class="note hosp-note"><strong>Nota:</strong> El alimento y bebidas de la estadía deberán ser cubiertas por parte del hotel, promotor u organización.</p>
   </div>
 </section>
 
@@ -871,7 +888,7 @@ if(window.gsap && window.ScrollTrigger && !calm){
     .fromTo(['#mmMeta','#cue'],{opacity:1,y:0},{opacity:0,y:-30,ease:'none',duration:.35,immediateRender:false},0);
 
   // títulos que entran letra por letra
-  document.querySelectorAll('section h2').forEach(h=>{
+  document.querySelectorAll('section h2:not(.no-split)').forEach(h=>{
     h.classList.add('split');
     h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(line=>line.trim().split(/\s+/).map(w=>
       `<span class="wd">${[...w].map(c=>`<span class="clip"><span class="ch">${c}</span></span>`).join('')}</span>`).join(' ')).join('<br>');
@@ -887,6 +904,7 @@ if(window.gsap && window.ScrollTrigger && !calm){
     const head=h.closest('.reveal'); if(head) head.classList.remove('reveal','pre');
   });
 
+// hospitality: las tarjetas y la nota entran de abajo, una tras otra, cada vez que aparece la sección  gsap.fromTo('.hosp-card, .hosp-note',{y:50,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',stagger:.15,    scrollTrigger:{trigger:'#hospitality',start:'top 70%',toggleActions:'play none none reverse'}});
   // fotos que se acercan al pasar
   gsap.utils.toArray([]).forEach(img=>{
     gsap.fromTo(img,{scale:1.18},{scale:1,ease:'none',scrollTrigger:{trigger:img,start:'top bottom',end:'bottom top',scrub:true}});
