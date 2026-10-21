@@ -127,13 +127,13 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .mm-pin{position:sticky;top:0;height:100svh;overflow:hidden;isolation:isolate}
 .waves{position:absolute;left:-5%;width:110%;top:18%;height:64%;z-index:0;opacity:.55}
 .waves path{fill:none;stroke:#f3f6f4;stroke-width:1.2;vector-effect:non-scaling-stroke}
-.halo{position:absolute;left:50%;top:54%;width:min(64vh,80vw);aspect-ratio:1;border-radius:50%;z-index:1;
+.halo{position:absolute;left:50%;top:40%;width:min(64vh,80vw);aspect-ratio:1;border-radius:50%;z-index:1;
   transform:translate(-50%,-50%);background:radial-gradient(circle,#dfe8e1 0%,#cbd8ce 55%,rgba(203,216,206,0) 71%)}
 .word{position:absolute;left:0;right:0;text-align:center;font-family:var(--display);text-transform:uppercase;line-height:.8;
   font-size:clamp(60px,15vw,270px);letter-spacing:-.02em;white-space:nowrap;will-change:transform}
 .word.back{top:12%;z-index:2;color:#161917}
 .word.front{bottom:13%;z-index:4;filter:drop-shadow(0 12px 30px rgba(0,0,0,.35))}
-.cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(88svh,980px);width:auto;max-width:none;transform:translateX(-50%);transform-origin:50% 100%;will-change:transform;
+.cut{position:absolute;left:50%;bottom:0;z-index:3;height:min(88svh,980px);width:auto;max-width:none;transform:translateX(-37.5%);transform-origin:50% 100%;will-change:transform;
   filter:drop-shadow(0 30px 40px rgba(0,0,0,.25))}
 .mm-meta{position:absolute;left:0;right:0;bottom:clamp(18px,3vh,34px);z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;color:#f3f6f4}
 .mm-meta .label{color:#f3f6f4;flex-basis:100%}
@@ -164,7 +164,7 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
   .word.back{top:16%}
   .word.front{bottom:22%}
   .cut{height:min(74svh,640px)}
-  .halo{top:58%}
+  .halo{top:44%}
   .scroll-cue{display:none}
   .bio-side{position:static}
 }
@@ -257,9 +257,10 @@ section{padding-block:clamp(80px,11vw,150px)}
 .play-ic b{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:400;background:var(--paper);color:var(--ink);padding-left:2px;transition:transform .2s,background .2s}
 .set:hover .play-ic b{transform:scale(1.08);background:var(--sage)}
 .set-item.playing .play-ic b{background:var(--sage)}
-.set-item.playing .play-ic b::before{content:"■";}
-.set-item.playing .play-ic b{font-size:0}
-.set-item.playing .play-ic b::before{font-size:12px}
+/* pausa: dos barras finas en lugar del cuadrado */
+.set-item.playing .play-ic b{font-size:0;padding-left:0}
+.set-item.playing .play-ic b::before{content:"";width:3px;height:13px;border-radius:1px;background:currentColor;box-shadow:6px 0 0 currentColor;transform:translateX(-3px)}
+#setList .set:focus:not(:focus-visible){outline:none}
 .set-item.playing .wave i{animation:eq .9s ease-in-out infinite alternate}
 .player{padding:0 4px 20px}
 .player iframe{display:block;width:100%;border:0;border-radius:6px;background:var(--stone)}
@@ -712,6 +713,8 @@ drawWaves(0);
 
 /* ---- capas de la portada: siguen al mouse y se separan al bajar ---- */
 const cut=$('#cut'), wBack=$('#wBack'), wFront=$('#wFront'), halo=$('#halo');
+// centrado con porcentajes para que GSAP no lo pise: la cabeza de Lucas cae en el medio del círculo
+if(window.gsap){ gsap.set(cut,{x:0,xPercent:-37.5}); gsap.set(halo,{x:0,y:0,xPercent:-50,yPercent:-50}); }
 if(fine && !calm){
   const mm=$('#top');
   mm.addEventListener('pointermove',e=>{
