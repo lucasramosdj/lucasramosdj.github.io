@@ -129,7 +129,7 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .waves{position:absolute;left:-5%;width:110%;top:18%;height:64%;z-index:0;opacity:.55}
 .waves path{fill:none;stroke:#f3f6f4;stroke-width:1.2;vector-effect:non-scaling-stroke}
 .halo{position:absolute;left:50%;top:40%;width:min(64vh,80vw);aspect-ratio:1;border-radius:50%;z-index:1;
-  transform:translate(-50%,-50%);background:radial-gradient(circle,#dfe8e1 0%,#cbd8ce 55%,rgba(203,216,206,0) 71%)}
+  transform:translate(-50%,-50%);background:radial-gradient(circle,#f3f7f4 0%,#e4ece6 45%,#d4ded7 58%,rgba(212,222,215,0) 70%)}
 /* LUCAS y RAMOS no se muestran hasta que carga la tipografía fina (sin flash de letra gruesa) */
 html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .word{position:absolute;left:0;right:0;text-align:center;font-family:var(--display);
@@ -764,6 +764,9 @@ drawWaves(0);
 const cut=$('#cut'), wBack=$('#wBack'), wFront=$('#wFront'), halo=$('#halo');
 // centrado con porcentajes para que GSAP no lo pise: la cabeza de Lucas cae en el medio del círculo
 if(window.gsap){ gsap.set(cut,{x:0,xPercent:-37.5}); gsap.set(halo,{x:0,y:0,xPercent:-50,yPercent:-50}); }
+// el aro de luz va centrado en la cabeza de Lucas (la cara está a ~18% de la altura del recorte)
+function placeHalo(){ halo.style.top = (cut.offsetTop + cut.offsetHeight*.18) + "px"; }
+if(cut.complete) placeHalo(); cut.addEventListener("load", placeHalo); addEventListener("resize", placeHalo);
 if(fine && !calm){
   const mm=$('#top');
   mm.addEventListener('pointermove',e=>{
