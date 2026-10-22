@@ -370,6 +370,8 @@ footer a:hover{color:#fff}
 .lb-box img{max-height:78vh;width:auto;max-width:100%;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.6);justify-self:center}
 .lb-info h3{font-size:clamp(18px,2vw,24px);margin:10px 0 8px}
 .lb-info p{color:var(--mist);margin-bottom:22px}
+.lb-player{margin-bottom:18px}
+.lb-player iframe{display:block;width:100%;border:0;border-radius:12px}
 .lb-close{position:absolute;top:max(18px,env(safe-area-inset-top,0px));right:max(18px,env(safe-area-inset-right,0px));width:46px;height:46px;border-radius:50%;border:1px solid rgba(238,242,239,.3);font-size:22px}
 .lb-nav{display:flex;gap:8px;margin-top:14px}
 
@@ -660,6 +662,7 @@ Al bajar, la portada queda fija un momento y las capas se separan. -->
       <p class="label" id="lbKind"></p>
       <h3 id="lbTitle"></h3>
       <p id="lbText"></p>
+      <div class="lb-player" id="lbPlayer" hidden></div>
       <a class="btn" id="lbLink" href="#" target="_blank" rel="noopener">Escuchar en Beatport</a>
       <div class="lb-nav">
         <button class="mini" id="lbPrev" type="button">← Anterior</button>
@@ -678,15 +681,15 @@ const BEATPORT = 'https://www.beatport.com/artist/lucas-ramos/868983';
 const SC = 'https://on.soundcloud.com/ooUS4uc03Lh4dVFFDd';
 
 const releases = [
-  {img:'rel1', t:'Winter Collection 2024', a:'Varios artistas', l:'The Soundgarden', k:'va'},
+  {img:'rel1', t:'Winter Collection 2024', a:'Varios artistas', l:'The Soundgarden', k:'va', sp:'535Tf5UhnWkcqj5nEDR6nm'},
   {img:'rel10', t:'The World of Thought', a:'Lucas Ramos', l:'', k:'original'},
-  {img:'rel2', t:'Lost In My Memories', a:'Lucas Ramos', l:'Manual Music', k:'original'},
+  {img:'rel2', t:'Lost In My Memories', a:'Lucas Ramos', l:'Manual Music', k:'original', sp:'7egmOfO9YhUrDD5qsTVYM8'},
   {img:'rel3', t:'I Miss Myself', a:'Lucas Ramos', l:'', k:'original'},
-  {img:'rel5', t:'Free Falling', a:'Julian Moreno, Lucas Ramos feat. Juan Fernandez', l:'Flug Lab', k:'original'},
-  {img:'rel7', t:'Leap Of Faith', a:'Casnik, Lucas Ramos', l:'The Purr', k:'original'},
-  {img:'rel4', t:'Visions (Lucas Ramos Remix)', a:'Shane Robinson', l:'Manual Music', k:'remix'},
+  {img:'rel5', t:'Free Falling', a:'Julian Moreno, Lucas Ramos feat. Juan Fernandez', l:'Flug Lab', k:'original', sc:'https://soundcloud.com/fluglab/julian-moreno-lucas-ramos-ft-juan-fernandez-free-falling-original-mix-flug-lab-1'},
+  {img:'rel7', t:'Leap Of Faith', a:'Casnik, Lucas Ramos', l:'The Purr', k:'original', sp:'5tEFoAVPFXTFusxzBJ2kKs'},
+  {img:'rel4', t:'Visions (Lucas Ramos Remix)', a:'Shane Robinson', l:'Manual Music', k:'remix', sp:'26MGL6XmAZHX2iQe8VyOCF'},
   {img:'rel8', t:'Descent Pattern (Lucas Ramos Remix)', a:'Gero Rinaldi, Mati Melgarejo', l:'', k:'remix'},
-  {img:'rel9', t:'Bittersuite (Lucas Ramos Unofficial Remix)', a:'Billie Eilish', l:'Free download', k:'remix', link:SC},
+  {img:'rel9', t:'Bittersuite (Lucas Ramos Unofficial Remix)', a:'Billie Eilish', l:'Free download', k:'remix', link:SC, sc:'https://soundcloud.com/lucasramosproducer/free-download-billie-eilish-bittersuite-lucas-ramos-unofficial-remix'},
   {img:'rel6', t:'Mar del Plata Vol. 1', a:'Varios artistas', l:'MAR.VA', k:'va'},
 ];
 const kindName = {original:'Original', remix:'Remix', va:'Compilado'};
@@ -779,11 +782,17 @@ function fill(){
   $('#lbImg').src=it.src; $('#lbImg').alt=it.title;
   $('#lbKind').textContent=it.kind; $('#lbTitle').textContent=it.title; $('#lbText').textContent=it.text;
   $('#lbLink').hidden=!it.link; if(it.link){$('#lbLink').href=it.link; $('#lbLink').textContent=it.cta;}
+  // si el tema está en Spotify o SoundCloud, se escucha ahí mismo
+  const pl=$('#lbPlayer');
+  if(it.sp) pl.innerHTML='<iframe title="Escuchar '+it.title+'" src="https://open.spotify.com/embed/track/'+it.sp+'?utm_source=generator&theme=0" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
+  else if(it.sc) pl.innerHTML='<iframe title="Escuchar '+it.title+'" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url='+encodeURIComponent(it.sc)+'&color=%23b4c7b8&auto_play=true&hide_related=true&show_comments=false&show_reposts=false&show_teaser=false&visual=false"></iframe>';
+  else pl.innerHTML='';
+  pl.hidden=!pl.innerHTML;
 }
 function openLb(items,i){ list=items; idx=i; lastFocus=document.activeElement; fill(); lb.hidden=false; document.body.style.overflow='hidden'; $('#lbClose').focus(); }
-function closeLb(){ lb.hidden=true; document.body.style.overflow=''; lastFocus&&lastFocus.focus(); }
+function closeLb(){ $('#lbPlayer').innerHTML=''; lb.hidden=true; document.body.style.overflow=''; lastFocus&&lastFocus.focus(); }
 const relItems=()=>[...relBox.querySelectorAll('.rel:not([hidden])')].map(el=>{const r=releases[el.dataset.i];
-  return {src:`img/${r.img}.jpg?v=hq`,kind:`${kindName[r.k]}${r.l ? " · " + r.l : ""}`,title:r.t,text:r.a,link:r.link||BEATPORT,cta:r.link?'Descargar en SoundCloud':'Escuchar en Beatport',el};});
+  return {src:`img/${r.img}.jpg?v=hq`,kind:`${kindName[r.k]}${r.l ? " · " + r.l : ""}`,title:r.t,text:r.a,sp:r.sp,sc:r.sc,link:r.link||BEATPORT,cta:r.link?'Descargar en SoundCloud':'Escuchar en Beatport',el};});
 relBox.addEventListener('click',e=>{const b=e.target.closest('.rel'); if(!b)return; const items=relItems(); openLb(items, items.findIndex(x=>x.el===b));});
 fan.addEventListener('click',e=>{const b=e.target.closest('.flyer'); if(!b)return;
   openLb(flyers.map(f=>({src:`img/${f.img}.jpg?v=hq`,kind:'Flyer',title:f.t,text:f.d})), +b.dataset.i);});
