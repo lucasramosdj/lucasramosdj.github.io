@@ -51,7 +51,22 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:
     radial-gradient(120% 80% at 70% calc(30% + var(--tone)*40%), hsl(140 6% 42%), transparent 70%),   /* gris verdoso como la portada, no tierra */
     linear-gradient(180deg, hsl(140 5% 31%), hsl(140 5% 22%));
+  overflow:hidden;
 }
+/* brillos lineales que cruzan el fondo, como el reflejo de las letras */
+.cyc::before,.cyc::after{content:"";position:absolute;top:-50%;bottom:-50%;width:70%;pointer-events:none;mix-blend-mode:screen;will-change:transform}
+.cyc::before{left:0;
+  background:
+    linear-gradient(90deg, transparent 30%, hsl(140 20% 85% / .10) 46%, hsl(0 0% 100% / .24) 50%, hsl(140 20% 85% / .10) 54%, transparent 70%),
+    linear-gradient(90deg, transparent 62%, hsl(0 0% 100% / .12) 66%, transparent 70%);
+  transform:translateX(-120%) skewX(-22deg);
+  animation:bgSweep 11s ease-in-out infinite}
+.cyc::after{left:0;width:40%;
+  background:linear-gradient(90deg, transparent 35%, hsl(140 15% 80% / .08) 47%, hsl(0 0% 100% / .15) 50%, hsl(140 15% 80% / .08) 53%, transparent 65%);
+  transform:translateX(320%) skewX(20deg);
+  animation:bgSweep2 17s ease-in-out 4s infinite}
+@keyframes bgSweep{0%{transform:translateX(-120%) skewX(-22deg)}55%,100%{transform:translateX(220%) skewX(-22deg)}}
+@keyframes bgSweep2{0%{transform:translateX(320%) skewX(20deg)}60%,100%{transform:translateX(-160%) skewX(20deg)}}
 .grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.07;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 1.2s steps(4) infinite}
