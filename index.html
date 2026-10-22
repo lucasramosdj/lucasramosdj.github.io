@@ -54,7 +54,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   overflow:hidden;
 }
 /* brillos lineales que cruzan el fondo, como el reflejo de las letras */
-.cyc::before,.cyc::after{content:"";position:absolute;top:-50%;bottom:-50%;width:70%;pointer-events:none;mix-blend-mode:screen;will-change:transform}
+.cyc::before,.cyc::after{content:"";position:absolute;top:-50%;bottom:-50%;width:70%;pointer-events:none;will-change:transform}
 .cyc::before{left:0;
   background:
     linear-gradient(90deg, transparent 30%, hsl(140 20% 85% / .10) 46%, hsl(0 0% 100% / .24) 50%, hsl(140 20% 85% / .10) 54%, transparent 70%),
@@ -829,14 +829,14 @@ document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',(
 }));
 
 /* ---- nav, progreso, tono del fondo, sección activa ---- */
-const nav=$('#nav'), prog=$('#progress'), root=document.documentElement;
+const nav=$('#nav'), prog=$('#progress'), cyc=document.querySelector('.cyc');
 const links=[...document.querySelectorAll('.menu a[href^="#"]')];
 const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
 function onScroll(){
   const y=scrollY, max=document.documentElement.scrollHeight-innerHeight, p=max>0?y/max:0;
   nav.classList.toggle('solid', y>40);
   prog.style.transform=`scaleX(${p})`;
-  root.style.setProperty('--tone', p.toFixed(3));
+  cyc.style.setProperty('--tone', p.toFixed(3));
   let cur=null; secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top < innerHeight*.4) cur=i; });
   links.forEach((a,i)=>a.classList.toggle('on', i===cur));
 }
@@ -852,14 +852,20 @@ const waves=$('#waves'); const NW=6; let amp=1;
 waves.innerHTML=Array.from({length:NW},()=>'<path/>').join('');
 const wpaths=[...waves.children];
 // copias de fondo (Flyers y Contacto): mismas ondas, desfasadas
-const bgSets=[...document.querySelectorAll('.waves-bg')].map((svg,n)=>{svg.innerHTML=Array.from({length:NW},()=>'<path/>').join('');return {paths:[...svg.children],off:2+n*3};});
+const bgSets=[...document.querySelectorAll('.waves-bg')].map((svg,n)=>{svg.innerHTML=Array.from({length:NW},()=>'<path/>').join('');return {svg,paths:[...svg.children],off:2+n*3,vis:false};});
+// solo se redibujan las ondas que están en pantalla, y a 30 cuadros por segundo: alivia la compu (y las grabaciones de pantalla)
+let heroVis=true, lastW=-1e9;
+const wio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.target===waves) heroVis=e.isIntersecting; else { const s=bgSets.find(b=>b.svg===e.target); if(s) s.vis=e.isIntersecting; } }));
+wio.observe(waves); bgSets.forEach(b=>wio.observe(b.svg));
 function drawWaves(t){
-  wpaths.forEach((p,k)=>{
+  if(t && t-lastW<33){ if(!calm) requestAnimationFrame(drawWaves); return; }
+  lastW=t;
+  if(heroVis||!t) wpaths.forEach((p,k)=>{
     let d=''; const base=300+(k-NW/2)*26, a=(38+k*14)*amp, f=.0042+k*.0004, ph=t*.0004*(1+k*.15)+k;
     for(let x=0;x<=1600;x+=20){ const y=base+Math.sin(x*f+ph)*a*Math.sin(x/1600*Math.PI); d+=(x?'L':'M')+x+' '+y.toFixed(1); }
     p.setAttribute('d',d);
   });
-  bgSets.forEach(set=>set.paths.forEach((p,k)=>{
+  bgSets.forEach(set=>(set.vis||!t) && set.paths.forEach((p,k)=>{
     let d=''; const base=300+(k-NW/2)*26, a=38+k*14, f=.0042+k*.0004, ph=t*.0004*(1+k*.15)+k+set.off;
     for(let x=0;x<=1600;x+=20){ const y=base+Math.sin(x*f+ph)*a*Math.sin(x/1600*Math.PI); d+=(x?'L':'M')+x+' '+y.toFixed(1); }
     p.setAttribute('d',d);
