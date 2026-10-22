@@ -905,8 +905,9 @@ if(window.gsap && window.ScrollTrigger && !calm){
   // al bajar: LUCAS se va a la izquierda, RAMOS a la derecha, Lucas se acerca
   const tl=gsap.timeline({scrollTrigger:{trigger:'#top',start:'top top',end:'bottom bottom',scrub:.6,
     onUpdate:s=>{ amp=1+s.progress*1.8; }}});
-  tl.to('.word.back',{x:()=>-innerWidth*.45,ease:'none'},0)
-    .to('.word.front',{x:()=>innerWidth*.45,ease:'none'},0)
+  // duration .3 (el resto dura .5): las letras terminan de salir antes y se mueven más rápido
+  tl.to('.word.back',{x:()=>-innerWidth*.45,ease:'none',duration:.3},0)
+    .to('.word.front',{x:()=>innerWidth*.45,ease:'none',duration:.3},0)
     // fromTo con valores de partida fijos: al volver arriba, Lucas y el aro quedan siempre visibles (no heredan el estado invisible de la entrada)
     .fromTo(cut,{scale:1,yPercent:0,opacity:1},{scale:1.12,yPercent:-4,opacity:1,ease:'none',immediateRender:false},0)
     .fromTo(halo,{scale:1,opacity:1},{scale:1.9,opacity:.35,ease:'none',immediateRender:false},0)
