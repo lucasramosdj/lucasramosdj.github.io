@@ -60,16 +60,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     linear-gradient(90deg, transparent 30%, hsl(140 20% 85% / .10) 46%, hsl(0 0% 100% / .24) 50%, hsl(140 20% 85% / .10) 54%, transparent 70%),
     linear-gradient(90deg, transparent 62%, hsl(0 0% 100% / .12) 66%, transparent 70%);
   transform:translateX(-120%) skewX(-22deg);
-  animation:bgSweep 11s ease-in-out infinite}
+  animation:bgSweep 11s ease-in-out 2s infinite}
 .cyc::after{left:0;width:40%;
   background:linear-gradient(90deg, transparent 35%, hsl(140 15% 80% / .08) 47%, hsl(0 0% 100% / .15) 50%, hsl(140 15% 80% / .08) 53%, transparent 65%);
   transform:translateX(320%) skewX(20deg);
-  animation:bgSweep2 17s ease-in-out 4s infinite}
+  animation:bgSweep2 17s ease-in-out 6s infinite}
 @keyframes bgSweep{0%{transform:translateX(-120%) skewX(-22deg)}55%,100%{transform:translateX(220%) skewX(-22deg)}}
 @keyframes bgSweep2{0%{transform:translateX(320%) skewX(20deg)}60%,100%{transform:translateX(-160%) skewX(20deg)}}
 .grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.07;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 1.2s steps(4) infinite}
+  animation:grain 1.2s steps(4) 2s infinite}
 @keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,-2%)}}
 
 .wrap{max-width:var(--max);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
@@ -150,7 +150,7 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .waves.waves-bg{top:12%;height:76%;opacity:.34;pointer-events:none;filter:drop-shadow(0 0 4px rgba(243,246,244,.6))}
 #flyers .waves.waves-bg{top:26%;height:58%}   /* las líneas pasan por la mitad de los flyers */
 .halo{position:absolute;left:50%;top:40%;width:min(83vh,104vw);aspect-ratio:1;border-radius:50%;z-index:1;
-  transform:translate(-50%,-50%);background:radial-gradient(circle,#f3f7f4 0%,#e4ece6 45%,#d4ded7 58%,rgba(212,222,215,0) 70%)}
+  transform:translate(-50%,-50%);will-change:transform,opacity;background:radial-gradient(circle,#f3f7f4 0%,#e4ece6 45%,#d4ded7 58%,rgba(212,222,215,0) 70%)}
 /* LUCAS y RAMOS no se muestran hasta que carga la tipografía fina (sin flash de letra gruesa) */
 html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
 .word{position:absolute;left:0;right:0;text-align:center;font-family:var(--display);
@@ -161,7 +161,7 @@ html:not(.fonts-ok) .word,html:not(.fonts-ok) .brand{visibility:hidden}
   background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%) -150% 0/250% 100% no-repeat,
     linear-gradient(180deg,#5b625e 0%,#1a1d1b 30%,#000 48%,#7d8581 60%,#151816 74%,#383e3a 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 6px 14px rgba(0,0,0,.25));animation:metalShine 5s ease-in-out 1.5s infinite}
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,.25));animation:metalShine 5s ease-in-out 2.2s infinite}
 @keyframes metalShine{0%{background-position:-150% 0,0 0}45%,100%{background-position:250% 0,0 0}}
 .word.front{bottom:13%;z-index:4;filter:drop-shadow(0 12px 30px rgba(0,0,0,.35))}
 /* más alto para que el metal y el cromo no corten la parte de abajo de las letras; el margen negativo las deja en el mismo lugar */
@@ -919,8 +919,8 @@ if(window.gsap && window.ScrollTrigger && !calm){
     .fromTo(halo,{scale:1,opacity:1},{scale:1.9,opacity:.35,ease:'none',immediateRender:false},0)
     .fromTo(['#mmMeta','#cue'],{opacity:1,y:0},{opacity:0,y:-30,ease:'none',duration:.35,immediateRender:false},0);
 
-  // títulos que entran letra por letra
-  document.querySelectorAll('section h2:not(.no-split)').forEach(h=>{
+  // títulos que entran letra por letra (se preparan después de la entrada, para no frenarla)
+  const splitTitles=()=>document.querySelectorAll('section h2:not(.no-split)').forEach(h=>{
     h.classList.add('split');
     h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(line=>line.trim().split(/\s+/).map(w=>
       `<span class="wd">${[...w].map(c=>`<span class="clip"><span class="ch">${c}</span></span>`).join('')}</span>`).join(' ')).join('<br>');
@@ -935,6 +935,7 @@ if(window.gsap && window.ScrollTrigger && !calm){
     // el bloque del título no hace fundido: así se ve bien la animación de las letras
     const head=h.closest('.reveal'); if(head) head.classList.remove('reveal','pre');
   });
+  setTimeout(()=>{ splitTitles(); ScrollTrigger.refresh(); },1700);
 
 // hospitality: las tarjetas y la nota entran de abajo, una tras otra, cada vez que aparece la sección  gsap.fromTo('.hosp-card, .hosp-note',{y:50,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',stagger:.15,    scrollTrigger:{trigger:'#hospitality',start:'top 70%',toggleActions:'play none none reverse'}});
   // fotos que se acercan al pasar
