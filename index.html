@@ -937,7 +937,9 @@ if(window.gsap && window.ScrollTrigger && !calm){
   });
   setTimeout(()=>{ splitTitles(); ScrollTrigger.refresh(); },1700);
 
-// hospitality: las tarjetas y la nota entran de abajo, una tras otra, cada vez que aparece la sección  gsap.fromTo('.hosp-card, .hosp-note',{y:50,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',stagger:.15,    scrollTrigger:{trigger:'#hospitality',start:'top 70%',toggleActions:'play none none reverse'}});
+  // hospitality: las tarjetas y la nota entran de abajo, una tras otra, cada vez que aparece la sección
+  gsap.fromTo('.hosp-card, .hosp-note',{y:50,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',stagger:.15,
+    scrollTrigger:{trigger:'#hospitality',start:'top 70%',toggleActions:'play none none reverse'}});
   // fotos que se acercan al pasar
   gsap.utils.toArray([]).forEach(img=>{
     gsap.fromTo(img,{scale:1.18},{scale:1,ease:'none',scrollTrigger:{trigger:img,start:'top bottom',end:'bottom top',scrub:true}});
